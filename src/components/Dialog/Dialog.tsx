@@ -2,24 +2,26 @@
 import React from 'react';
 
 interface DialogProps {
-  isOpen: boolean;
   title: string;
-  children: React.ReactNode;
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const Dialog: React.FC<DialogProps> = ({ isOpen, title, children, onClose }) => {
+const Dialog: React.FC<DialogProps> = ({ title, isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
   return (
-    <div className={`${isOpen ? 'fixed' : 'hidden'} inset-0 flex items-center justify-center z-50`}>
-      <div className="bg-black opacity-50 fixed inset-0" onClick={onClose}></div>
-      <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 z-10">
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg font-bold">{title}</h2>
-          <button className="text-gray-400 hover:text-gray-600" onClick={onClose}>
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <div className="border-b p-4 flex justify-between items-center">
+          <h3 className="font-semibold text-lg">{title}</h3>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-800">
             &times;
           </button>
         </div>
-        <div className="mt-4">{children}</div>
+        <div className="p-4">
+          {children}
+        </div>
       </div>
     </div>
   );
