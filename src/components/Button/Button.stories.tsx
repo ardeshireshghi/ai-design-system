@@ -1,24 +1,57 @@
 // Button.stories.tsx
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import Button from './Button';
 
-export default {
+const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-} as ComponentMeta<typeof Button>;
+  argTypes: {
+    variant: {
+      control: {
+        type: 'select',
+        options: ['primary', 'secondary', 'success', 'danger'],
+      },
+    },
+    size: {
+      control: {
+        type: 'select',
+        options: ['small', 'medium', 'large'],
+      },
+    },
+    disabled: { control: 'boolean' },
+  },
+  args: {
+    variant: 'primary',
+    size: 'medium',
+    disabled: false,
+  },
+};
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export default meta;
+
+const Template: StoryFn<typeof Button> = (args) => <Button {...args}>Button</Button>;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  label: 'Primary Button',
-  onClick: () => alert('Button clicked'),
+  variant: 'primary',
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  variant: 'secondary',
+};
+
+export const Success = Template.bind({});
+Success.args = {
+  variant: 'success',
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+  variant: 'danger',
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  label: 'Disabled Button',
-  onClick: () => alert('Button clicked'),
   disabled: true,
 };
