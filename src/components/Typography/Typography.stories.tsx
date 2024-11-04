@@ -1,43 +1,41 @@
-
 // Typography.stories.tsx
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import Typography from './Typography';
 
-export default {
-  title: 'Components/Typography',
+const meta: Meta<typeof Typography> = {
+  title: 'Design System/Typography',
   component: Typography,
-  argTypes: {
-    variant: { 
-      control: { type: 'select', options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'body2'] },
-    },
-    children: { control: 'text' },
-    className: { control: 'text' },
+  args: {
+    children: 'Typography Example',
   },
-} as Meta;
-
-const Template: Story = (args) => <Typography {...args} />;
-
-export const Heading1 = Template.bind({});
-Heading1.args = {
-  variant: 'h1',
-  children: 'Heading 1',
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'subtitle1',
+        'subtitle2',
+        'body1',
+        'body2',
+        'caption',
+        'overline',
+      ],
+    },
+  },
 };
 
-export const Heading2 = Template.bind({});
-Heading2.args = {
-  variant: 'h2',
-  children: 'Heading 2',
-};
+export default meta;
 
-export const Body1 = Template.bind({});
-Body1.args = {
-  variant: 'body1',
-  children: 'This is body text.',
-};
+type Story = StoryObj<typeof Typography>;
 
-export const Body2 = Template.bind({});
-Body2.args = {
-  variant: 'body2',
-  children: 'This is secondary body text.',
+export const Primary: Story = {
+  args: {
+    variant: 'h1',
+  },
 };
