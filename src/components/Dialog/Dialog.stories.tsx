@@ -1,15 +1,20 @@
 // Dialog.stories.tsx
-import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 import Dialog from './Dialog';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Components/Dialog',
+  title: 'Design System/Dialog',
   component: Dialog,
   argTypes: {
-    isOpen: { control: 'boolean' },
-    title: { control: 'text' },
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
+    size: {
+      control: 'radio',
+      options: ['small', 'medium', 'large'],
+    },
+    variant: {
+      control: 'radio',
+      options: ['default', 'danger', 'success'],
+    },
   },
 };
 
@@ -20,27 +25,41 @@ type Story = StoryObj<typeof Dialog>;
 export const Default: Story = {
   args: {
     isOpen: true,
+    onClose: () => alert('Close dialog'),
     title: 'Default Dialog',
+    children: <p>This is a default dialog content.</p>,
     size: 'medium',
-    children: <p>This is a default dialog.</p>,
+    variant: 'default',
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    ...Default.args,
+    title: 'Danger Dialog',
+    variant: 'danger',
+  },
+};
+
+export const Success: Story = {
+  args: {
+    ...Default.args,
+    title: 'Success Dialog',
+    variant: 'success',
   },
 };
 
 export const Small: Story = {
   args: {
-    isOpen: true,
-    title: 'Small Dialog',
+    ...Default.args,
     size: 'small',
-    children: <p>This is a small dialog.</p>,
   },
 };
 
 export const Large: Story = {
   args: {
-    isOpen: true,
-    title: 'Large Dialog',
+    ...Default.args,
     size: 'large',
-    children: <p>This is a large dialog.</p>,
   },
 };
 ```
