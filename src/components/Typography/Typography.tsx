@@ -1,35 +1,32 @@
-import React from 'react';  
+import React from 'react';
 import clsx from 'clsx';
 
-type TypographyProps = {  
-  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'overline';  
-  children: React.ReactNode;  
+type TypographyProps = {
+  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'caption';
+  children: React.ReactNode;
   className?: string;
-};  
+};
 
-const Typography: React.FC<TypographyProps> = ({ variant, children, className }) => {  
-  const baseStyles = 'font-sans';  
-  const variantStyles = {  
-    h1: 'text-6xl font-bold',  
-    h2: 'text-5xl font-bold',  
-    h3: 'text-4xl font-semibold',  
-    h4: 'text-3xl font-semibold',  
-    h5: 'text-2xl font-medium',  
-    h6: 'text-xl font-medium',  
-    body1: 'text-base',  
-    body2: 'text-sm',  
-    caption: 'text-xs italic',  
-    overline: 'text-xs uppercase tracking-wider',  
-  };  
+const Typography: React.FC<TypographyProps> = ({ variant, children, className }) => {
+  const baseStyle = 'text-gray-900';
+  const styles = {
+    h1: 'text-5xl font-bold',
+    h2: 'text-4xl font-bold',
+    h3: 'text-3xl font-semibold',
+    h4: 'text-2xl font-semibold',
+    h5: 'text-xl font-medium',
+    h6: 'text-lg font-medium',
+    body: 'text-base',
+    caption: 'text-sm text-gray-600',
+  };
 
-  const Tag = variant as keyof JSX.IntrinsicElements;  
-  
-  return (  
-    <Tag className={clsx(baseStyles, variantStyles[variant], className)}>  
-      {children}  
-    </Tag>  
-  );  
-};  
+  const Component = variant.startsWith('h') ? variant : 'p';
+  return React.createElement(
+    Component,
+    { className: clsx(baseStyle, styles[variant], className) },
+    children
+  );
+};
 
 export default Typography;
 
