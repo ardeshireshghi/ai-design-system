@@ -1,48 +1,49 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 
-export interface DialogProps {
+type DialogProps = {
   isOpen: boolean;
   title: string;
+  children: ReactNode;
   onClose: () => void;
-  children: React.ReactNode;
-  variant?: 'default' | 'danger' | 'info';
-}
+  variant?: 'default' | 'info' | 'warning' | 'error';
+};
 
-export const Dialog: React.FC<DialogProps> = ({
+const Dialog: React.FC<DialogProps> = ({
   isOpen,
   title,
-  onClose,
   children,
-  variant = 'default'
+  onClose,
+  variant = 'default',
 }) => {
   if (!isOpen) return null;
 
   const dialogClasses = clsx(
-    'fixed inset-0 flex items-center justify-center z-50',
+    'fixed inset-0 flex items-center justify-center p-4',
     {
-      'bg-red-100': variant === 'danger',
-      'bg-blue-100': variant === 'info',
-      'bg-white': variant === 'default',
+      'bg-white text-black': variant === 'default',
+      'bg-blue-500 text-white': variant === 'info',
+      'bg-yellow-200 text-black': variant === 'warning',
+      'bg-red-500 text-white': variant === 'error',
     }
   );
 
-  const overlayClasses = 'fixed inset-0 bg-black opacity-50';
-  const containerClasses = 'relative bg-white rounded-lg p-6 shadow-lg max-w-md w-full';
-  const titleClasses = 'text-lg font-semibold mb-4';
-  const closeBtnClasses = 'absolute top-3 right-3 text-gray-600 hover:text-black';
-
   return (
-    <div className={dialogClasses}>
-      <div className={overlayClasses} onClick={onClose}></div>
-      <div className={containerClasses}>
-        <button className={closeBtnClasses} onClick={onClose} aria-label="Close">
-          &times;
-        </button>
-        <h2 className={titleClasses}>{title}</h2>
-        <div>{children}</div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div className={dialogClasses}>
+        <div className="w-full max-w-md p-6 bg-white rounded shadow-lg">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-bold">{title}</h3>
+            <button onClick={onClose} className="text-xl font-bold">
+              &times;
+            </button>
+          </div>
+          <div>{children}</div>
+        </div>
       </div>
     </div>
   );
 };
+
+export default Dialog;
 
