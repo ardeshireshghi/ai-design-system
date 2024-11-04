@@ -1,61 +1,58 @@
-import { Meta, Story } from '@storybook/react';
-import Button, { ButtonProps } from './Button';
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import Button from './Button';
 
-const meta: Meta<ButtonProps> = {
-  title: 'Design System/Button',
+const meta: Meta<typeof Button> = {
+  title: 'Components/Button',
   component: Button,
   argTypes: {
-    variant: {
-      control: { type: 'select', options: ['primary', 'secondary', 'danger', 'success'] },
-    },
-    size: {
-      control: { type: 'select', options: ['small', 'medium', 'large'] },
-    },
-    fullWidth: {
-      control: 'boolean',
-    },
+    onClick: { action: 'clicked' },
   },
 };
 
 export default meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args}>Button</Button>;
+type Story = StoryObj<typeof Button>;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  variant: 'primary',
-  size: 'medium',
+export const Primary: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Primary Button',
+  },
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  variant: 'secondary',
-  size: 'medium',
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    children: 'Secondary Button',
+  },
 };
 
-export const Danger = Template.bind({});
-Danger.args = {
-  variant: 'danger',
-  size: 'medium',
+export const Tertiary: Story = {
+  args: {
+    variant: 'tertiary',
+    children: 'Tertiary Button',
+  },
 };
 
-export const Success = Template.bind({});
-Success.args = {
-  variant: 'success',
-  size: 'medium',
+export const Disabled: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Disabled Button',
+    disabled: true,
+  },
 };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
+export const Large: Story = {
+  args: {
+    size: 'large',
+    children: 'Large Button',
+  },
 };
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-};
-
-export const FullWidth = Template.bind({});
-FullWidth.args = {
-  fullWidth: true,
+export const Small: Story = {
+  args: {
+    size: 'small',
+    children: 'Small Button',
+  },
 };
