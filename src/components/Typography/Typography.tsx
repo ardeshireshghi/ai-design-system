@@ -2,28 +2,33 @@ import React from 'react';
 import clsx from 'clsx';
 
 type TypographyProps = {
-  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'caption';
+  as?: React.ElementType;
+  variant?: 'display' | 'headline' | 'title' | 'subtitle' | 'body' | 'caption' | 'overline';
   className?: string;
   children: React.ReactNode;
 };
 
-export const Typography: React.FC<TypographyProps> = ({ variant, className, children }) => {
-  const baseClasses = 'text-gray-900';
-  const variantClasses = clsx({
-    'text-4xl font-bold': variant === 'h1',
-    'text-3xl font-semibold': variant === 'h2',
-    'text-2xl font-medium': variant === 'h3',
-    'text-xl font-medium': variant === 'h4',
-    'text-lg font-medium': variant === 'h5',
-    'text-base font-medium': variant === 'h6',
-    'text-base': variant === 'body',
-    'text-sm text-gray-600': variant === 'caption',
-  });
-
-  return React.createElement(
-    variant === 'body' || variant === 'caption' ? 'p' : variant,
-    { className: clsx(baseClasses, variantClasses, className) },
-    children
+const Typography: React.FC<TypographyProps> = ({
+  as: Component = 'p',
+  variant = 'body',
+  className,
+  children,
+}) => {
+  const classes = clsx(
+    className,
+    {
+      'text-5xl font-bold': variant === 'display',
+      'text-3xl font-semibold': variant === 'headline',
+      'text-2xl font-medium': variant === 'title',
+      'text-xl font-medium text-gray-700': variant === 'subtitle',
+      'text-base text-gray-800': variant === 'body',
+      'text-sm text-gray-600': variant === 'caption',
+      'text-xs text-gray-500 uppercase': variant === 'overline',
+    }
   );
+
+  return <Component className={classes}>{children}</Component>;
 };
+
+export default Typography;
 
