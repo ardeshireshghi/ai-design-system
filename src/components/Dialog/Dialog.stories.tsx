@@ -1,65 +1,57 @@
-// Dialog.stories.tsx
+
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import Dialog from './Dialog';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Design System/Dialog',
+  title: 'Components/Dialog',
   component: Dialog,
+  tags: ['autodocs'],
   argTypes: {
-    size: {
-      control: 'radio',
-      options: ['small', 'medium', 'large'],
-    },
-    variant: {
-      control: 'radio',
-      options: ['default', 'danger', 'success'],
+    onClose: { action: 'closed' },
+    variant: { 
+      control: {
+        type: 'select', 
+        options: ['default', 'success', 'warning', 'danger'],
+      },
     },
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Dialog>;
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Dialog> = {
   args: {
     isOpen: true,
-    onClose: () => alert('Close dialog'),
     title: 'Default Dialog',
-    children: <p>This is a default dialog content.</p>,
-    size: 'medium',
+    children: <p>This is a default dialog.</p>,
     variant: 'default',
   },
 };
 
-export const Danger: Story = {
+export const Success: StoryObj<typeof Dialog> = {
   args: {
-    ...Default.args,
-    title: 'Danger Dialog',
-    variant: 'danger',
-  },
-};
-
-export const Success: Story = {
-  args: {
-    ...Default.args,
+    isOpen: true,
     title: 'Success Dialog',
+    children: <p>This is a success dialog.</p>,
     variant: 'success',
   },
 };
 
-export const Small: Story = {
+export const Warning: StoryObj<typeof Dialog> = {
   args: {
-    ...Default.args,
-    size: 'small',
+    isOpen: true,
+    title: 'Warning Dialog',
+    children: <p>This is a warning dialog.</p>,
+    variant: 'warning',
   },
 };
 
-export const Large: Story = {
+export const Danger: StoryObj<typeof Dialog> = {
   args: {
-    ...Default.args,
-    size: 'large',
+    isOpen: true,
+    title: 'Danger Dialog',
+    children: <p>This is a danger dialog.</p>,
+    variant: 'danger',
   },
 };
-```
