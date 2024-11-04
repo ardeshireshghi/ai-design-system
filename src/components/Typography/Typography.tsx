@@ -1,51 +1,29 @@
-// Typography.tsx
 import React from 'react';
 import clsx from 'clsx';
 
-type TypographyVariant =
-  | 'h1'
-  | 'h2'
-  | 'h3'
-  | 'h4'
-  | 'h5'
-  | 'h6'
-  | 'subtitle1'
-  | 'subtitle2'
-  | 'body1'
-  | 'body2'
-  | 'caption'
-  | 'overline';
-
 type TypographyProps = {
-  variant: TypographyVariant;
-  children: React.ReactNode;
+  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'caption';
   className?: string;
+  children: React.ReactNode;
 };
 
-const Typography: React.FC<TypographyProps> = ({ variant, children, className }) => {
-  const baseClasses = {
-    h1: 'text-4xl font-bold',
-    h2: 'text-3xl font-semibold',
-    h3: 'text-2xl font-medium',
-    h4: 'text-xl font-medium',
-    h5: 'text-lg font-medium',
-    h6: 'text-base font-medium',
-    subtitle1: 'text-lg font-normal',
-    subtitle2: 'text-base font-normal',
-    body1: 'text-base font-normal',
-    body2: 'text-sm font-normal',
-    caption: 'text-xs font-light',
-    overline: 'text-xs font-medium uppercase',
-  };
+export const Typography: React.FC<TypographyProps> = ({ variant, className, children }) => {
+  const baseClasses = 'text-gray-900';
+  const variantClasses = clsx({
+    'text-4xl font-bold': variant === 'h1',
+    'text-3xl font-semibold': variant === 'h2',
+    'text-2xl font-medium': variant === 'h3',
+    'text-xl font-medium': variant === 'h4',
+    'text-lg font-medium': variant === 'h5',
+    'text-base font-medium': variant === 'h6',
+    'text-base': variant === 'body',
+    'text-sm text-gray-600': variant === 'caption',
+  });
 
-  const Component = variant === 'body1' || variant === 'body2' ? 'p' : variant as keyof JSX.IntrinsicElements;
-
-  return (
-    <Component className={clsx(baseClasses[variant], className)}>
-      {children}
-    </Component>
+  return React.createElement(
+    variant === 'body' || variant === 'caption' ? 'p' : variant,
+    { className: clsx(baseClasses, variantClasses, className) },
+    children
   );
 };
-
-export default Typography;
 
