@@ -1,57 +1,47 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { Dialog, DialogProps } from './Dialog';
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import Dialog from './Dialog';
-
-const meta: Meta<typeof Dialog> = {
+const meta: Meta<DialogProps> = {
   title: 'Components/Dialog',
   component: Dialog,
-  tags: ['autodocs'],
   argTypes: {
-    onClose: { action: 'closed' },
-    variant: { 
+    isOpen: { control: 'boolean' },
+    title: { control: 'text' },
+    variant: {
       control: {
-        type: 'select', 
-        options: ['default', 'success', 'warning', 'danger'],
+        type: 'inline-radio',
+        options: ['default', 'danger', 'info'],
       },
     },
+    onClose: { action: 'closed' },
   },
 };
 
 export default meta;
 
-export const Default: StoryObj<typeof Dialog> = {
+export const Default: StoryObj<DialogProps> = {
   args: {
     isOpen: true,
     title: 'Default Dialog',
-    children: <p>This is a default dialog.</p>,
     variant: 'default',
+    children: <p>This is a default dialog.</p>,
   },
 };
 
-export const Success: StoryObj<typeof Dialog> = {
-  args: {
-    isOpen: true,
-    title: 'Success Dialog',
-    children: <p>This is a success dialog.</p>,
-    variant: 'success',
-  },
-};
-
-export const Warning: StoryObj<typeof Dialog> = {
-  args: {
-    isOpen: true,
-    title: 'Warning Dialog',
-    children: <p>This is a warning dialog.</p>,
-    variant: 'warning',
-  },
-};
-
-export const Danger: StoryObj<typeof Dialog> = {
+export const Danger: StoryObj<DialogProps> = {
   args: {
     isOpen: true,
     title: 'Danger Dialog',
-    children: <p>This is a danger dialog.</p>,
     variant: 'danger',
+    children: <p>This is a danger dialog.</p>,
+  },
+};
+
+export const Info: StoryObj<DialogProps> = {
+  args: {
+    isOpen: true,
+    title: 'Info Dialog',
+    variant: 'info',
+    children: <p>This is an info dialog.</p>,
   },
 };
