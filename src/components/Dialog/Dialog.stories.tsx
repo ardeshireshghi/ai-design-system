@@ -1,47 +1,54 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { Dialog, DialogProps } from './Dialog';
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import Dialog from './Dialog';
 
-const meta: Meta<DialogProps> = {
+export default {
   title: 'Components/Dialog',
   component: Dialog,
   argTypes: {
-    isOpen: { control: 'boolean' },
-    title: { control: 'text' },
     variant: {
-      control: {
-        type: 'inline-radio',
-        options: ['default', 'danger', 'info'],
-      },
+      control: 'select',
+      options: ['default', 'info', 'warning', 'error'],
     },
-    onClose: { action: 'closed' },
   },
+} as Meta<typeof Dialog>;
+
+const Template: Story<React.ComponentProps<typeof Dialog>> = (args) => (
+  <Dialog {...args} />
+);
+
+export const Default = Template.bind({});
+Default.args = {
+  isOpen: true,
+  title: 'Default Dialog',
+  children: 'This is a default dialog',
+  onClose: () => alert('Closing Dialog'),
+  variant: 'default',
 };
 
-export default meta;
-
-export const Default: StoryObj<DialogProps> = {
-  args: {
-    isOpen: true,
-    title: 'Default Dialog',
-    variant: 'default',
-    children: <p>This is a default dialog.</p>,
-  },
+export const Info = Template.bind({});
+Info.args = {
+  isOpen: true,
+  title: 'Info Dialog',
+  children: 'This is an informational dialog',
+  onClose: () => alert('Closing Dialog'),
+  variant: 'info',
 };
 
-export const Danger: StoryObj<DialogProps> = {
-  args: {
-    isOpen: true,
-    title: 'Danger Dialog',
-    variant: 'danger',
-    children: <p>This is a danger dialog.</p>,
-  },
+export const Warning = Template.bind({});
+Warning.args = {
+  isOpen: true,
+  title: 'Warning Dialog',
+  children: 'This is a warning dialog',
+  onClose: () => alert('Closing Dialog'),
+  variant: 'warning',
 };
 
-export const Info: StoryObj<DialogProps> = {
-  args: {
-    isOpen: true,
-    title: 'Info Dialog',
-    variant: 'info',
-    children: <p>This is an info dialog.</p>,
-  },
+export const Error = Template.bind({});
+Error.args = {
+  isOpen: true,
+  title: 'Error Dialog',
+  children: 'This is an error dialog',
+  onClose: () => alert('Closing Dialog'),
+  variant: 'error',
 };
