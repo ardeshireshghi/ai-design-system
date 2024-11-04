@@ -1,62 +1,53 @@
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import Typography from './Typography';
 
-import type { Meta, StoryObj } from '@storybook/react';  
-import Typography from './Typography';  
+const meta: Meta<typeof Typography> = {
+  title: 'Components/Typography',
+  component: Typography,
+  args: {
+    variant: 'body',
+    children: 'Sample text',
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body', 'caption'],
+    },
+    children: {
+      control: 'text',
+    },
+  },
+};
 
-const meta: Meta<typeof Typography> = {  
-  title: 'DesignSystem/Typography',  
-  component: Typography,  
-  tags: ['autodocs'],  
-  argTypes: {  
-    variant: {  
-      control: {  
-        type: 'select',  
-        options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'body2', 'caption', 'overline'],  
-      },  
-    },  
-    children: {  
-      control: 'text',  
-    },  
-  },  
-};  
+export default meta;
 
-export default meta;  
+export const Default: StoryObj<typeof Typography> = {
+  args: {
+    variant: 'body',
+    children: 'Sample body text',
+  },
+};
 
-type Story = StoryObj<typeof Typography>;
-
-export const Default: Story = {  
-  args: {  
-    variant: 'body1',  
-    children: 'Example Text',  
-  },  
-};  
-
-export const Headings: Story = {  
-  render: () => (  
-    <>  
-      <Typography variant="h1">Heading 1</Typography>  
-      <Typography variant="h2">Heading 2</Typography>  
-      <Typography variant="h3">Heading 3</Typography>  
-      <Typography variant="h4">Heading 4</Typography>  
-      <Typography variant="h5">Heading 5</Typography>  
-      <Typography variant="h6">Heading 6</Typography>  
-    </>  
+export const Headings: StoryObj<typeof Typography> = {
+  render: (args) => (
+    <div className="space-y-4">
+      <Typography {...args} variant="h1">Heading 1</Typography>
+      <Typography {...args} variant="h2">Heading 2</Typography>
+      <Typography {...args} variant="h3">Heading 3</Typography>
+      <Typography {...args} variant="h4">Heading 4</Typography>
+      <Typography {...args} variant="h5">Heading 5</Typography>
+      <Typography {...args} variant="h6">Heading 6</Typography>
+    </div>
   ),
-};  
+  args: {
+    children: '',
+  },
+};
 
-export const Bodies: Story = {  
-  render: () => (  
-    <>  
-      <Typography variant="body1">Body 1</Typography>  
-      <Typography variant="body2">Body 2</Typography>  
-    </>  
-  ),  
-};  
-
-export const Others: Story = {  
-  render: () => (  
-    <>  
-      <Typography variant="caption">Caption</Typography>  
-      <Typography variant="overline">Overline</Typography>  
-    </>  
-  ),  
-};  
+export const Caption: StoryObj<typeof Typography> = {
+  args: {
+    variant: 'caption',
+    children: 'This is a caption text',
+  },
+};
