@@ -2,41 +2,43 @@ import React from 'react';
 import clsx from 'clsx';
 
 type ButtonProps = {
-  variant?: 'primary' | 'secondary' | 'tertiary';
-  size?: 'small' | 'medium' | 'large';
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
 };
 
-const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  size = 'medium',
-  disabled = false,
-  onClick,
-  children,
+const Button: React.FC<ButtonProps> = ({ 
+  variant = 'primary', 
+  size = 'md', 
+  disabled = false, 
+  onClick, 
+  children 
 }) => {
-  const baseStyles = 'font-semibold rounded focus:outline-none focus:ring transition';
+  const baseClasses = 'rounded font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2';
+  
+  const variantClasses = clsx({
+    'bg-blue-500 text-white hover:bg-blue-600': variant === 'primary',
+    'bg-gray-500 text-white hover:bg-gray-600': variant === 'secondary',
+    'bg-red-500 text-white hover:bg-red-600': variant === 'danger',
+  });
 
-  const variantStyles = {
-    primary: 'text-white bg-blue-500 hover:bg-blue-600 focus:ring-blue-300',
-    secondary: 'text-blue-500 bg-white border border-blue-500 hover:bg-blue-50 focus:ring-blue-300',
-    tertiary: 'text-gray-500 bg-transparent hover:text-blue-500 focus:ring-gray-300',
-  };
+  const sizeClasses = clsx({
+    'px-2 py-1 text-sm': size === 'sm',
+    'px-4 py-2': size === 'md',
+    'px-6 py-3 text-lg': size === 'lg',
+  });
 
-  const sizeStyles = {
-    small: 'text-sm py-1 px-2',
-    medium: 'text-base py-2 px-4',
-    large: 'text-lg py-3 px-6',
-  };
+  const disabledClasses = 'opacity-50 cursor-not-allowed';
 
   return (
     <button
       className={clsx(
-        baseStyles,
-        variantStyles[variant],
-        sizeStyles[size],
-        disabled && 'opacity-50 cursor-not-allowed'
+        baseClasses,
+        variantClasses,
+        sizeClasses,
+        { [disabledClasses]: disabled }
       )}
       disabled={disabled}
       onClick={onClick}
