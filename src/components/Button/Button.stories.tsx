@@ -1,57 +1,60 @@
 // Button.stories.tsx
-import { Meta, StoryFn } from '@storybook/react';
-import Button from './Button';
+import { Meta, StoryObj } from '@storybook/react';
+import Button, { ButtonProps } from './Button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Design System/Button',
   component: Button,
   argTypes: {
     variant: {
-      control: {
-        type: 'select',
-        options: ['primary', 'secondary', 'success', 'danger'],
-      },
+      control: { type: 'select', options: ['primary', 'secondary', 'danger'] },
     },
     size: {
-      control: {
-        type: 'select',
-        options: ['small', 'medium', 'large'],
-      },
+      control: { type: 'select', options: ['small', 'medium', 'large'] },
     },
-    disabled: { control: 'boolean' },
-  },
-  args: {
-    variant: 'primary',
-    size: 'medium',
-    disabled: false,
+    onClick: { action: 'clicked' },
   },
 };
 
 export default meta;
 
-const Template: StoryFn<typeof Button> = (args) => <Button {...args}>Button</Button>;
+type Story = StoryObj<typeof Button>;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  variant: 'primary',
+export const Primary: Story = {
+  args: {
+    variant: 'primary',
+    size: 'medium',
+    children: 'Primary Button',
+  },
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  variant: 'secondary',
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    size: 'medium',
+    children: 'Secondary Button',
+  },
 };
 
-export const Success = Template.bind({});
-Success.args = {
-  variant: 'success',
+export const Danger: Story = {
+  args: {
+    variant: 'danger',
+    size: 'medium',
+    children: 'Danger Button',
+  },
 };
 
-export const Danger = Template.bind({});
-Danger.args = {
-  variant: 'danger',
+export const Small: Story = {
+  args: {
+    size: 'small',
+    children: 'Small Button',
+  },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
+export const Large: Story = {
+  args: {
+    size: 'large',
+    children: 'Large Button',
+  },
 };
+```
