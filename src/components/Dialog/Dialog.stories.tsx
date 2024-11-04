@@ -1,24 +1,15 @@
-src/stories/Dialog.stories.tsx
-```tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
-import Dialog from '../components/Dialog';
+// Dialog.stories.tsx
+import { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import Dialog from './Dialog';
 
 const meta: Meta<typeof Dialog> = {
   title: 'Components/Dialog',
   component: Dialog,
-  tags: ['autodocs'],
-  args: {
-    title: 'Default Dialog',
-    children: 'This is a dialog content area.',
-    isOpen: true,
-    size: 'md',
-    variant: 'default',
-  },
   argTypes: {
-    onClose: { action: 'closed' },
-    size: { control: 'radio', options: ['sm', 'md', 'lg'] },
-    variant: { control: 'radio', options: ['default', 'danger', 'success'] },
+    isOpen: { control: 'boolean' },
+    title: { control: 'text' },
+    size: { control: 'select', options: ['small', 'medium', 'large'] },
   },
 };
 
@@ -27,58 +18,29 @@ export default meta;
 type Story = StoryObj<typeof Dialog>;
 
 export const Default: Story = {
-  args: {},
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(args.isOpen);
-    return (
-      <Dialog
-        {...args}
-        isOpen={isOpen}
-        onClose={() => {
-          args.onClose();
-          setIsOpen(false);
-        }}
-      />
-    );
+  args: {
+    isOpen: true,
+    title: 'Default Dialog',
+    size: 'medium',
+    children: <p>This is a default dialog.</p>,
   },
 };
 
-export const Danger: Story = {
+export const Small: Story = {
   args: {
-    title: 'Danger Dialog',
-    variant: 'danger',
+    isOpen: true,
+    title: 'Small Dialog',
+    size: 'small',
+    children: <p>This is a small dialog.</p>,
   },
 };
 
-export const Success: Story = {
+export const Large: Story = {
   args: {
-    title: 'Success Dialog',
-    variant: 'success',
-  },
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(args.isOpen);
-    return (
-      <Dialog
-        {...args}
-        isOpen={isOpen}
-        onClose={() => {
-          args.onClose();
-          setIsOpen(false);
-        }}
-      />
-    );
-  },
-};
-
-export const SmallSize: Story = {
-  args: {
-    size: 'sm',
-  },
-};
-
-export const LargeSize: Story = {
-  args: {
-    size: 'lg',
+    isOpen: true,
+    title: 'Large Dialog',
+    size: 'large',
+    children: <p>This is a large dialog.</p>,
   },
 };
 ```
