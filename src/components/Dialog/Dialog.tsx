@@ -1,39 +1,48 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 
-interface DialogProps {
+export interface DialogProps {
   isOpen: boolean;
+  title: string;
   onClose: () => void;
-  title?: string;
   children: React.ReactNode;
-  variant?: 'default' | 'success' | 'warning' | 'danger';
+  variant?: 'default' | 'danger' | 'info';
 }
 
-const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, title, children, variant = 'default' }) => {
+export const Dialog: React.FC<DialogProps> = ({
+  isOpen,
+  title,
+  onClose,
+  children,
+  variant = 'default'
+}) => {
   if (!isOpen) return null;
 
-  const variantClasses = {
-    default: 'bg-white text-gray-900',
-    success: 'bg-green-100 text-green-900',
-    warning: 'bg-yellow-100 text-yellow-900',
-    danger: 'bg-red-100 text-red-900',
-  };
+  const dialogClasses = clsx(
+    'fixed inset-0 flex items-center justify-center z-50',
+    {
+      'bg-red-100': variant === 'danger',
+      'bg-blue-100': variant === 'info',
+      'bg-white': variant === 'default',
+    }
+  );
 
-  return createPortal(
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="fixed inset-0 bg-black opacity-50" onClick={onClose}></div>
-      <div className={clsx('w-full max-w-md p-5 rounded-lg shadow-lg', variantClasses[variant])}>
-        <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium">{title}</h3>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">X</button>
-        </div>
+  const overlayClasses = 'fixed inset-0 bg-black opacity-50';
+  const containerClasses = 'relative bg-white rounded-lg p-6 shadow-lg max-w-md w-full';
+  const titleClasses = 'text-lg font-semibold mb-4';
+  const closeBtnClasses = 'absolute top-3 right-3 text-gray-600 hover:text-black';
+
+  return (
+    <div className={dialogClasses}>
+      <div className={overlayClasses} onClick={onClose}></div>
+      <div className={containerClasses}>
+        <button className={closeBtnClasses} onClick={onClose} aria-label="Close">
+          &times;
+        </button>
+        <h2 className={titleClasses}>{title}</h2>
         <div>{children}</div>
       </div>
-    </div>,
-    document.body
+    </div>
   );
 };
-
-export default Dialog;
 
